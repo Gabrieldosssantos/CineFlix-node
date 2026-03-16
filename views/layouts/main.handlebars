@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CineFlix</title>
+
+  <!-- Tailwind -->
+  <link rel="stylesheet" href="/styles/output.css">
+
+  <!-- Font awesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+</head>
+
+<body class="bg-gray-100">
+
+  <div class="w-full bg-gray-900 text-white shadow-md">
+    <div class="max-w-6xl mx-auto flex items-center p-4 px-6">
+
+      <!-- Logo no canto superior esquerdo -->
+      <a href="/" class="flex items-center gap-3 group">
+       <img src="/assets/CineFlix.png" alt="Logo CineFlix" 
+         class="w-12 h-12 object-contain group-hover:scale-110 duration-200"
+         style="width: 48px; height: 48px;">
+        <span class="text-2xl font-black tracking-tighter text-white group-hover:text-red-500 transition duration-200">
+          CINE<span class="text-red-600">FLIX</span>
+        </span>
+      </a>
+
+      <!-- Link centralizado -->
+      <div class="flex-1 flex justify-center">
+        <a href="/cadastro"
+          class="text-xl font-bold transition duration-200 hover:text-red-400 hover:scale-110 inline-block">
+          🎬 Cadastrar Filme
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  {{{body}}}
+
+</body>
+
+</html>
