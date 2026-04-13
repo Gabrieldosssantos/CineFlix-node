@@ -1,9 +1,7 @@
-const cloudinary = require('cloudinary').v2;
-
 cloudinary.config({
-  cloud_name: 'SEU_CLOUD_NAME',
-  api_key: 'SUA_API_KEY',
-  api_secret: 'SUA_API_SECRET'
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 const express = require('express');
 const { engine } = require('express-handlebars');
@@ -114,7 +112,7 @@ aplicacao.post('/filmes', upload.single('foto'), async (requisicao, resposta) =>
       return resposta.status(400).send('Por favor, preencha todos os campos obrigatórios.');
     }
 
-    // trocar essa const
+    
     const imagem = requisicao.file ? requisicao.file.path : '/assets/Filme2.png';
 
     await Filme.create({
