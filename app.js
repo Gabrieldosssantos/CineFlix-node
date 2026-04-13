@@ -1,3 +1,10 @@
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'SEU_CLOUD_NAME',
+  api_key: 'SUA_API_KEY',
+  api_secret: 'SUA_API_SECRET'
+});
 const express = require('express');
 const { engine } = require('express-handlebars');
 const path = require('path');
@@ -10,16 +17,17 @@ const Filme = require('./db/Filme');
 const aplicacao = express();
 
 // Configuração do Multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/assets');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'filmes',
+    allowed_formats: ['jpg', 'png', 'jpeg']
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // Body parser
 aplicacao.use(bodyParser.urlencoded({ extended: false }));
@@ -106,7 +114,8 @@ aplicacao.post('/filmes', upload.single('foto'), async (requisicao, resposta) =>
       return resposta.status(400).send('Por favor, preencha todos os campos obrigatórios.');
     }
 
-    const imagem = requisicao.file ? '/assets/' + requisicao.file.filename : '/assets/Filme2.png';
+    // trocar essa const
+    const imagem = requisicao.file ? requisicao.file.path : '/assets/Filme2.png';
 
     await Filme.create({
       titulo,
@@ -138,7 +147,4 @@ aplicacao.post('/filmes/remover/:id', async (requisicao, resposta) => {
 });
 
 
-// Servidor
-aplicacao.listen(8000, () => {
-  console.log('Servidor iniciado na porta 8000');
-});
+module.exports = aplicacao;
